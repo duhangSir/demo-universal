@@ -3,6 +3,7 @@
     <div class="user_login_Interface">
       <div class="user_title">
         <h3>用户登录</h3>
+        <svg-icon className="svg-language" icon="language"></svg-icon>
       </div>
       <el-form :rules="ruleFormRef" ref="Loginform" :model="loginForm">
         <el-form-item prop="username">
@@ -11,7 +12,7 @@
               <svg-icon icon="user"></svg-icon>
             </el-icon>
           </span>
-          <el-input v-model="loginForm.username" />
+          <el-input v-model.trim="loginForm.username" />
         </el-form-item>
         <el-form-item prop="password">
           <span class="svg-container">
@@ -19,7 +20,7 @@
               <svg-icon icon="password"></svg-icon>
             </el-icon>
           </span>
-          <el-input :type="inputType" v-model="loginForm.password" />
+          <el-input :type="inputType" v-model.trim="loginForm.password" />
 
           <span class="svg-pwd" @click="handllePassWordStatus">
             <el-icon>
@@ -35,10 +36,16 @@
 <script setup>
 import { reactive, ref, computed } from 'vue'
 import { validatePassword } from './rule'
+import md5 from 'md5'
+import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
+import until from '../../untils/deepCode'
 const loginForm = reactive({
-  username: 'admin',
+  username: 'super-admin',
   password: '123456'
 })
+const store = useStore()
+const router = useRouter()
 const inputType = ref('password')
 const passwordIconStatus = computed(() => {
   return inputType.value === 'password' ? 'eye' : 'eye-open'
@@ -49,12 +56,21 @@ const ruleFormRef = reactive({
   password: [{ required: true, trigger: 'blur', validator: validatePassword }]
 })
 const handleLoginButton = async () => {
-  await Loginform.value.validate((valid) => {
+  if (!Loginform.value) return
+  await Loginform.value.validate(async (valid) => {
     if (valid) {
-      alert('登录成功')
+      const formData = until.deepCopy(loginForm)
+      formData.password = md5(formData.password)
+      store.dispatch('user/handleToken', formData)
+      // if (response) {
+      //   const res = await User.getUserInfo()
+      //   console.log(res)
+      // }
+      router.push('/')
     }
   })
 }
+
 const handllePassWordStatus = () => {
   inputType.value = inputType.value === 'password' ? 'text' : 'password'
 }
@@ -69,6 +85,16 @@ $cursor: #fff;
   height: 100vh;
   background: #2f3747;
   position: relative;
+  .svg-language {
+    position: absolute;
+    top: 4px;
+    right: 0;
+    background-color: #fff;
+    font-size: 22px;
+    padding: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
   .user_login_Interface {
     width: 600px;
     height: 350px;
