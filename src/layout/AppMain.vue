@@ -1,0 +1,13 @@
+<template>
+  <div class="container">
+    <router-view></router-view>
+  </div>
+</template>
+
+<script setup></script>
+
+<style lang="scss" scoped>
+.container {
+  padding: 100px 20px 20px 20px;
+}
+</style>
