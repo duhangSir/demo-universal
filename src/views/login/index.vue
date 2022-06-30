@@ -61,13 +61,7 @@ const handleLoginButton = async () => {
     if (valid) {
       const formData = until.deepCopy(loginForm)
       formData.password = md5(formData.password)
-      console.log(formData)
-      console.log(loginForm)
-      store.dispatch('user/handleToken', formData)
-      // if (response) {
-      //   const res = await User.getUserInfo()
-      //   console.log(res)
-      // }
+      await store.dispatch('user/handleToken', formData)
       router.push('/')
     }
   })

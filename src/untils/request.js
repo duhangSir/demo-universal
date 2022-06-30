@@ -1,6 +1,7 @@
 import axios from 'axios'
 import loading from './loading'
 import md5 from 'md5'
+import store from '@/store'
 const instance = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
   timeout: 5000
@@ -11,11 +12,10 @@ instance.interceptors.request.use(
   (config) => {
     // 在请求发送之前做一些事情
     loading.open()
-    // const token = store.state.token
-    // console.log(token)
-    // if (token) {
-    //   config.headers.Authorization = token
-    // }
+    const token = store.getters.token
+    if (token) {
+      config.headers.Authorization = 'Bearer ' + token
+    }
     const { icode, time } = getTestICode()
     config.headers.icode = icode
     config.headers.codeType = time

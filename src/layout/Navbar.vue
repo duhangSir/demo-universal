@@ -39,11 +39,22 @@
                 </el-icon>
               </span>
               <div>
-                <img
-                  class="person_function_img"
-                  src="../icons/logo.png"
-                  alt=""
-                />
+                <el-dropdown trigger="click" @command="handleCommand">
+                  <span class="person_function_img">
+                    <img :src="userInfo.avatar" alt="" />
+                  </span>
+                  <template #dropdown>
+                    <el-dropdown-menu>
+                      <el-dropdown-item command="首页">首页</el-dropdown-item>
+                      <el-dropdown-item command="课程主页"
+                        >课程主页</el-dropdown-item
+                      >
+                      <el-dropdown-item command="退出登录"
+                        >退出登录</el-dropdown-item
+                      >
+                    </el-dropdown-menu>
+                  </template>
+                </el-dropdown>
               </div>
             </div>
           </div>
@@ -60,9 +71,31 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
+const store = useStore()
+const userInfo = store.getters.userInfo
+const router = useRouter()
+const handleCommand = (command) => {
+  if (command === '退出登录') {
+    store.dispatch('user/loging')
+    router.push('/login')
+  }
+}
+</script>
 
 <style lang="scss" scoped>
+.person_function_img {
+  width: 40px;
+  margin-bottom: 20px;
+  height: 40px;
+}
+.person_function_img img {
+  margin-bottom: 10px;
+  width: 40px;
+  height: 40px;
+}
 ::v-deep .common-layout {
   .el-header {
     box-shadow: 0px 0px 2px 0px #1b1818;
@@ -95,10 +128,6 @@
         }
         .el-icon {
           font-size: 20px;
-        }
-        .person_function_img {
-          width: 40px;
-          height: 40px;
         }
       }
     }

@@ -1,11 +1,11 @@
 <template>
-  <template v-if="(props.data && !props.data.children) || props.data.children.length === 0">
-    <el-menu-item :index="props.data.path">
+  <template v-if="(props.data && !props.data.children) || props.data.children.length == 0">
+    <el-menu-props.data :index="props.data.path">
       <el-icon>
         <svg-icon :icon="props.data.meta.icon"></svg-icon>
       </el-icon>
-      {{ props.data.meta.title }}
-    </el-menu-item>
+      <span>{{ props.data.meta.title }}</span>
+    </el-menu-props.data>
   </template>
   <template v-if="props.data && props.data.children && props.data.children.length > 0">
     <el-sub-menu :index="props.data.path">
@@ -15,11 +15,7 @@
         </el-icon>
         <span>{{ props.data.meta.title }}</span>
       </template>
-      <Item
-        v-for="(item, index) in props.data.children"
-        :key="index"
-        :data="item"
-      ></Item>
+      <Item v-for="item in props.data.children" :key="item" :data="item"></Item>
     </el-sub-menu>
   </template>
 </template>
