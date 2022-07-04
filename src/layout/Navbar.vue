@@ -5,12 +5,14 @@
         <el-header>
           <div class="header-top">
             <div class="header-PersonCenter">
-              <span>
+              <span class="header-Person">
                 <el-icon>
                   <svg-icon icon="hamburger-opened"></svg-icon>
                 </el-icon>
               </span>
-              <span class="personCenter-content">个人中心</span>
+              <span class="personCenter-content">
+                <breadCrumb></breadCrumb>
+              </span>
             </div>
             <div class="interface-function">
               <span>
@@ -59,10 +61,7 @@
             </div>
           </div>
           <div class="header-bottom">
-            <div class="historySelected">
-              <div class="bottom-dot"></div>
-              个人中心
-            </div>
+            <hamburger></hamburger>
           </div>
         </el-header>
         <el-container> </el-container>
@@ -74,9 +73,12 @@
 <script setup>
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
+import breadCrumb from '@/components/breadCrumb'
+import Hamburger from '@/components/Hamburger'
 const store = useStore()
 const userInfo = store.getters.userInfo
 const router = useRouter()
+store.dispatch('user/avatar', userInfo.avatar)
 const handleCommand = (command) => {
   if (command === '退出登录') {
     store.dispatch('user/loging')
@@ -117,6 +119,17 @@ const handleCommand = (command) => {
         margin-right: auto;
         display: flex;
         align-items: center;
+      }
+      .header-Person{
+        display: inline-block;
+        width: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 40px;
+      }
+      .header-Person:hover{
+        background-color: rgba($color: #000000, $alpha: .4);
       }
       .interface-function {
         display: flex;

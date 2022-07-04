@@ -4,7 +4,8 @@ export default {
   namespaced: true,
   state: () => ({
     token: get('token') || '',
-    userInfo: get('userInfo') || []
+    userInfo: get('userInfo') || [],
+    avatar: get('avatar') || ''
   }),
   mutations: {
     handleSetToken(state, token) {
@@ -14,6 +15,10 @@ export default {
     handleSetUserInfo(state, userInfo) {
       state.userInfo = userInfo
       set('userInfo', userInfo)
+    },
+    setAvatar(state, avatar) {
+      state.avatar = avatar
+      set('avatar', avatar)
     }
   },
   actions: {
@@ -30,6 +35,9 @@ export default {
       commit('handleSetToken', '')
       commit('handleSetUserInfo', '')
       removeAllItem()
+    },
+    avatar({ commit }, avatar) {
+      commit('setAvatar', avatar)
     }
   }
 }

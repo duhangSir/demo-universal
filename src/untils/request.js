@@ -2,6 +2,7 @@ import axios from 'axios'
 import loading from './loading'
 import md5 from 'md5'
 import store from '@/store'
+import router from '@/router'
 const instance = axios.create({
   baseURL: process.env.VUE_APP_BASE_API,
   timeout: 5000
@@ -39,6 +40,14 @@ instance.interceptors.response.use(
   },
   (error) => {
     loading.close()
+    if (
+      error.response &&
+      error.response.data &&
+      error.response.data.code === 401
+    ) {
+      store.dispatch('user/loging')
+      router.push('/login')
+    }
     // 对响应错误执行操作
     return Promise.reject(error)
   }

@@ -6,4 +6,7 @@ const userGet = (data) => {
 const getUserInfo = () => {
   return request({ url: '/sys/profile', method: 'GET' })
 }
-export default { userGet, getUserInfo }
+const getUserManage = (data) => {
+  return request({ url: '/user-manage/list', method: 'GET', data })
+}
+export default { userGet, getUserInfo, getUserManage }

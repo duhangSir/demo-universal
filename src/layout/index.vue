@@ -9,7 +9,6 @@
     </div>
   </div>
 </template>
-
 <script setup>
 import Sidebar from './Sidebar'
 import Navbar from './Navbar'
@@ -21,7 +20,6 @@ import AppMain from './AppMain'
   position: relative;
   width: 100%;
   height: 100%;
-
   .sidebar-container {
     width: 170px;
     height: 100%;
@@ -37,11 +35,9 @@ import AppMain from './AppMain'
 
   .main-container {
     width: calc(100% - 170px);
-
     height: 100%;
     margin-left: 170px;
     position: relative;
-
     .fixed-header {
       position: fixed;
       top: 0;

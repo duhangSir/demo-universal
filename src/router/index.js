@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import layout from '../layout/index.vue'
-const routes = [
+export const routes = [
   {
     path: '/',
     name: 'layout',
@@ -40,7 +40,7 @@ const routes = [
   }
 ]
 
-const privateRoutes = [
+export const privateRoutes = [
   {
     path: '/user',
     name: 'user',

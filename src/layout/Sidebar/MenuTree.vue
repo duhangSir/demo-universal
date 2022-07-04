@@ -3,7 +3,7 @@
     active-text-color="#fff"
     background-color="#304156"
     class="el-menu-vertical-demo"
-    default-active="/profile"
+    :default-active="$route.path"
     text-color="#bfcbd8"
     unique-opened
     router
@@ -35,7 +35,7 @@ const props = defineProps({
 }
 .logo-container {
   width: 100%;
-  height: 50px;
+  height: 70px;
   font-size: 14px;
   font-weight: 600;
   display: inline-flex;

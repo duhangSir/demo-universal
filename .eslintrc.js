@@ -7,10 +7,7 @@ module.exports = {
     node: true
   },
   // ESLint 中基础配置需要继承的配置
-  extends: [
-    'plugin:vue/vue3-essential',
-    '@vue/standard'
-  ],
+  extends: ['plugin:vue/vue3-essential', '@vue/standard'],
   // 解析器
   parserOptions: {
     parser: '@babel/eslint-parser'
@@ -25,18 +22,18 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-unused-vars':'warn',
+    'no-unused-vars': 'warn',
     'space-before-function-paren': 'off',
-    "vue/multi-word-component-names":'off',
+    'vue/multi-word-component-names': 'off'
   },
-  overrides:[
+  overrides: [
     {
-      files:[
+      files: [
         '**/__tests__/*.{j,t}s?(x)',
         '**/tests/unit/**/*.spec.{j,t}s?(x)'
       ],
-      env:{
-        jest:true
+      env: {
+        jest: true
       }
     }
   ]
